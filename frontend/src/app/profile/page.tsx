@@ -9,17 +9,17 @@ interface User {
 }
 
 export default function ProfilePage() {
-  // State-|| for user data
+  // State for user data
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  //  State-||  for editing
+  // State for editing
   const [isEditingName, setIsEditingName] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
-  // Temporary State-|| for editing
+  // Temporary State for editing
   const [tempName, setTempName] = useState('');
   const [tempEmail, setTempEmail] = useState('');
 
@@ -231,8 +231,7 @@ export default function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Main Container */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Header Section with Name and Logout */}
+         
         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-6 mb-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-center justify-between">
             <div>
@@ -241,133 +240,164 @@ export default function ProfilePage() {
               </h1>
               <p className="text-slate-500 mt-1 text-sm">Profile Settings</p>
             </div>
-            <button
-              onClick={handleLogout}
-              className="px-5 py-2.5 rounded-xl font-medium
-                transition-all duration-200
-                backdrop-blur-md
-                bg-red-400/10 hover:bg-red-400/20
-                border border-red-300/30
-                text-red-700 hover:text-red-800
-                shadow-sm hover:shadow-md"
-            >
-              Logout
-            </button>
+           <button
+            onClick={handleLogout}
+            className="
+              px-5 py-2.5
+              rounded-[0.4rem]
+              font-medium
+              transition-all duration-200
+              backdrop-blur-md
+              bg-[rgba(224,232,255,0.1)]
+              border-[1.5px] border-[rgba(116,114,114,0.3)]
+              text-[#4c4c4c]
+              shadow-sm
+              hover:bg-[rgba(224,232,255,0.2)]
+              hover:border-[rgba(116,114,114,0.5)]
+              hover:shadow-md
+            "
+          >
+            Logout
+          </button>
+
 
           </div>
         </div>
-
-        {/* Name Update Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-8 mb-6 hover:shadow-xl transition-all duration-300">
-          <div className="space-y-4">
-            <label className="block">
-              <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
-                Name
-              </span>
-              <div className="mt-2 flex gap-3">
-                <input
-                  type="text"
-                  value={isEditingName ? tempName : user?.name || ''}
-                  onChange={(e) => setTempName(e.target.value)}
-                  disabled={!isEditingName || isSaving}
-                  className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
-                    isEditingName
-                      ? 'border-blue-400 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
-                      : 'border-slate-200 bg-slate-50 text-slate-700'
-                  } focus:outline-none font-medium disabled:opacity-50`}
-                />
-                <button
-                  onClick={handleNameUpdate}
-                  disabled={isSaving}
-                  className={`px-6 py-3 rounded-xl font-medium
-                    transition-all duration-200 transform hover:scale-105
-                    shadow-md hover:shadow-lg
-                    backdrop-blur-md
-                    bg-slate-400/20 hover:bg-slate-400/30
-                    border border-slate-300/30
-                    text-slate-800
-                    disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
-                >
-                  {isSaving ? 'Saving...' : isEditingName ? 'Save' : 'Update'}
-                </button>
-
-              </div>
-            </label>
-
-            {isEditingName && !isSaving && (
-              <button
-                onClick={() => {
-                  setIsEditingName(false);
-                  setTempName(user?.name || '');
-                }}
-                className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
-              >
-                Cancel
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Email Update Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 p-8 mb-6 hover:shadow-xl transition-all duration-300">
-          <div className="space-y-4">
-            <label className="block">
-              <div className="flex items-center gap-2 mb-2">
+ 
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/50 hover:shadow-xl transition-all duration-300 overflow-hidden">
+          
+          {/* Name update section */}
+          <div className="p-8 pb-4">
+            <div className="space-y-4">
+              <label className="block">
                 <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
-                  Email
+                  Name
                 </span>
-                {user?.emailVerified && (
-                  <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                    Verified
+                <div className="mt-2 flex gap-3">
+                  <input
+                    type="text"
+                    value={isEditingName ? tempName : user?.name || ''}
+                    onChange={(e) => setTempName(e.target.value)}
+                    disabled={!isEditingName || isSaving}
+                    className={`flex-1 px-4 py-3 rounded-lg border transition-colors duration-200 ${
+                      isEditingName
+                        ? 'border-blue-400 bg-white focus:border-blue-500 focus:ring-0 focus:outline-none text-slate-900'
+                        : 'border-slate-300 bg-slate-100 text-slate-600 disabled:hover:bg-slate-200'
+                    } font-medium disabled:opacity-80`}
+                  />
+
+
+
+                  <button
+                    onClick={handleNameUpdate}
+                    disabled={isSaving}
+                    className={`
+                      px-5 py-2.5
+                      rounded-[0.4rem]
+                      font-medium
+                      transition-all duration-200
+                      backdrop-blur-md
+                      bg-[rgba(224,232,255,0.1)]
+                      border-[1.5px] border-[rgba(116,114,114,0.3)]
+                      text-[#4c4c4c]
+                      shadow-sm
+                      hover:bg-[rgba(224,232,255,0.2)]
+                      hover:border-[rgba(116,114,114,0.5)]
+                      hover:shadow-md
+                      disabled:opacity-50
+                      disabled:cursor-not-allowed
+                      disabled:shadow-none
+                    `}
+                  >
+                    {isSaving ? 'Saving...' : isEditingName ? 'Save' : 'Update'}
+                  </button>
+
+                </div>
+              </label>
+
+              {isEditingName && !isSaving && (
+                <button
+                  onClick={() => {
+                    setIsEditingName(false);
+                    setTempName(user?.name || '');
+                  }}
+                  className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
+          </div>
+ 
+          <div className="p-8 pt-4">
+            <div className="space-y-4">
+              <label className="block">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-semibold text-slate-700 uppercase tracking-wide">
+                    Email
                   </span>
-                )}
-              </div>
-              <div className="mt-2 flex gap-3">
+                  {/* {user?.emailVerified && (
+                    <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                      Verified
+                    </span>
+                  )} */}
+                </div>
+                <div className="mt-2 flex gap-3">
                 <input
                   type="email"
                   value={isEditingEmail ? tempEmail : user?.email || ''}
                   onChange={(e) => setTempEmail(e.target.value)}
                   disabled={!isEditingEmail || isSaving}
-                  className={`flex-1 px-4 py-3 rounded-xl border-2 transition-all duration-200 ${
+                  className={`flex-1 px-4 py-3 rounded-lg border transition-colors duration-200 ${
                     isEditingEmail
-                      ? 'border-blue-400 bg-white focus:border-blue-500 focus:ring-4 focus:ring-blue-100'
-                      : 'border-slate-200 bg-slate-50 text-slate-700'
-                  } focus:outline-none font-medium disabled:opacity-50`}
+                      ? 'border-blue-400 bg-white focus:border-blue-500 focus:ring-0 focus:outline-none text-slate-900'
+                      : 'border-slate-300 bg-slate-100 text-slate-600 disabled:hover:bg-slate-200'
+                  } font-medium disabled:opacity-80`}
                 />
-                <button
+
+                 <button
                   onClick={handleEmailUpdate}
                   disabled={isSaving}
-                  className={`px-6 py-3 rounded-xl font-medium
-                    transition-all duration-200 transform hover:scale-105
-                    shadow-md hover:shadow-lg
+                  className={`
+                    px-5 py-2.5
+                    rounded-[0.4rem]
+                    font-medium
+                    transition-all duration-200
                     backdrop-blur-md
-                    bg-slate-400/20 hover:bg-slate-400/30
-                    border border-slate-300/30
-                    text-slate-800 hover:text-slate-900
-                    disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
+                    bg-[rgba(224,232,255,0.1)]
+                    border-[1.5px] border-[rgba(116,114,114,0.3)]
+                    text-[#4c4c4c]
+                    shadow-sm
+                    hover:bg-[rgba(224,232,255,0.2)]
+                    hover:border-[rgba(116,114,114,0.5)]
+                    hover:shadow-md
+                    disabled:opacity-50
+                    disabled:cursor-not-allowed
+                    disabled:shadow-none
+                  `}
                 >
                   {isSaving ? 'Saving...' : isEditingEmail ? 'Save' : 'Update'}
                 </button>
 
-              </div>
-            </label>
+                </div>
+              </label>
 
-            {isEditingEmail && !isSaving && (
-              <button
-                onClick={() => {
-                  setIsEditingEmail(false);
-                  setTempEmail(user?.email || '');
-                }}
-                className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
-              >
-                Cancel
-              </button>
-            )}
+              {isEditingEmail && !isSaving && (
+                <button
+                  onClick={() => {
+                    setIsEditingEmail(false);
+                    setTempEmail(user?.email || '');
+                  }}
+                  className="text-sm text-slate-500 hover:text-slate-700 transition-colors"
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
           </div>
         </div>
-
-        {/* Delete Account Section */}
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-red-200/50 p-8 hover:shadow-xl transition-all duration-300">
+              {/* delete sectiopn */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-red-200/50 p-8 mt-6 hover:shadow-xl transition-all duration-300">
           <div className="flex items-start gap-4">
             <div className="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
               <svg
@@ -385,7 +415,7 @@ export default function ProfilePage() {
               </svg>
             </div>
             <div className="flex-1">
-              <h3 className="text-lg font-bold text-slate-800 mb-2">Delete Account</h3>
+              <h3 className="text-lg font-bold text-slate-800 -2">Delete Account</h3>
               <p className="text-slate-600 text-sm mb-4">
                 Your account will be permanently deleted and you will lose access to it and any of your team and organization data. This action is irreversible.
               </p>
